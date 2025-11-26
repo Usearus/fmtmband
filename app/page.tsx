@@ -40,10 +40,73 @@ const merchItems = [
   { id: 4, name: "Pentagram Patch Set", price: "$15", type: "Accessories" },
 ];
 
+// Discography data with Spotify embed URLs
+const discography = [
+  {
+    id: 1,
+    title: "Aeternum Vale",
+    year: "2025",
+    image: "/FMTM Album 1.jpg",
+    spotifyEmbed: "https://open.spotify.com/embed/album/3qaj07ms8H9wC7rRm5BFVs?utm_source=generator&theme=0",
+    tracks: [
+      { id: 1, title: "Circle of Death", duration: "4:12" },
+      { id: 2, title: "Strangers", duration: "3:48" },
+      { id: 3, title: "Terraform", duration: "5:06" },
+      { id: 4, title: "Skin of Glass", duration: "4:33" },
+      { id: 5, title: "A Wilted Waltz", duration: "4:21" },
+      { id: 6, title: "Is This Limbo..", duration: "6:45" },
+    ],
+  },
+  {
+    id: 2,
+    title: "A Wilted Waltz",
+    year: "2024",
+    image: "/FMTM Album 2.jpg",
+    spotifyEmbed: "https://open.spotify.com/embed/album/1zsv8ln7zDs7NHjBgeZpcS?utm_source=generator&theme=0",
+    tracks: [
+      { id: 1, title: "Withered Petals", duration: "3:56" },
+      { id: 2, title: "Dance of Decay", duration: "4:22" },
+      { id: 3, title: "Midnight Requiem", duration: "5:18" },
+      { id: 4, title: "Frostbitten Heart", duration: "3:44" },
+      { id: 5, title: "The Last Embrace", duration: "4:51" },
+    ],
+  },
+  {
+    id: 3,
+    title: "As the Casket Closed",
+    year: "2023",
+    image: "/FMTM Album 3.jpg",
+    spotifyEmbed: "https://open.spotify.com/embed/album/6ALHCWFCfZxPZ8mp1am6cK?utm_source=generator&theme=0",
+    tracks: [
+      { id: 1, title: "Final Breath", duration: "4:03" },
+      { id: 2, title: "Six Feet Under", duration: "3:29" },
+      { id: 3, title: "Buried Alive", duration: "5:42" },
+      { id: 4, title: "Eulogy in Flames", duration: "4:15" },
+      { id: 5, title: "The Mourning After", duration: "6:01" },
+      { id: 6, title: "Casket's Lullaby", duration: "3:58" },
+    ],
+  },
+  {
+    id: 4,
+    title: "Is this Limbo..",
+    year: "2023",
+    image: "/FMTM Album 4.jpg",
+    spotifyEmbed: "https://open.spotify.com/embed/album/7ifQHiaADCa4vdUlXA2JTO?utm_source=generator&theme=0",
+    tracks: [
+      { id: 1, title: "Purgatory Gates", duration: "4:33" },
+      { id: 2, title: "Wandering Souls", duration: "3:47" },
+      { id: 3, title: "Between Worlds", duration: "5:11" },
+      { id: 4, title: "Eternal Damnation", duration: "4:28" },
+      { id: 5, title: "The Void Calls", duration: "6:22" },
+    ],
+  },
+];
+
 export default function Home() {
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [selectedAlbum, setSelectedAlbum] = useState(discography[0]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -253,101 +316,89 @@ export default function Home() {
 
       {/* Music/Album Section */}
       <section id="music" className="py-20 md:py-32 bg-background relative">
-        <div className="max-w-6xl mx-auto px-4 md:px-6">
+        <div className="max-w-4xl mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-16">
-            <p className="font-body text-blood-bright text-sm uppercase tracking-[0.3em] mb-3">Latest Release</p>
-            <h2 className="font-heading text-4xl md:text-6xl text-bone tracking-wider">AETERNUM VALE</h2>
+            <p className="font-body text-blood-bright text-sm uppercase tracking-[0.3em] mb-3">
+              {selectedAlbum.id === 1 ? "Latest Release" : `${selectedAlbum.year} Release`}
+            </p>
+            <h2 className="font-heading text-4xl md:text-6xl text-bone tracking-wider uppercase">
+              {selectedAlbum.title}
+            </h2>
             <div className="w-24 h-1 bg-linear-to-r from-transparent via-blood to-transparent mx-auto mt-6" />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
-            {/* Album Art */}
-            <div className="relative group">
-              <div className="aspect-square border-2 border-blood/30 relative overflow-hidden">
-                <Image 
-                  src="/FMTM Album 1.jpg" 
-                  alt="Aeternum Vale Album Art" 
-                  fill
-                  className="object-cover"
-                />
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-blood/0 group-hover:bg-blood/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <button 
-                    onClick={() => handleTrackClick(albumTracks[0])}
-                    className="w-16 h-16 bg-blood rounded-full flex items-center justify-center transform scale-50 group-hover:scale-100 transition-transform duration-300"
-                  >
-                    <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              
-              {/* Streaming links */}
-              <div className="flex justify-center gap-4 mt-6">
-                <a href="#" className="p-3 bg-ash hover:bg-steel transition-colors rounded" title="Spotify">
-                  <svg className="w-5 h-5 text-bone" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                  </svg>
-                </a>
-                <a href="#" className="p-3 bg-ash hover:bg-steel transition-colors rounded" title="Apple Music">
-                  <svg className="w-5 h-5 text-bone" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M23.997 6.124a9.23 9.23 0 00-.24-2.19 4.68 4.68 0 00-1.08-1.91 4.61 4.61 0 00-1.91-1.08c-.79-.22-1.6-.3-2.19-.24-2.03.02-6.37.02-8.58 0-.59-.06-1.4.02-2.19.24a4.61 4.61 0 00-1.91 1.08c-.49.49-.83 1.13-1.08 1.91a9.23 9.23 0 00-.24 2.19c.02 2.03.02 6.37 0 8.58a9.23 9.23 0 00.24 2.19 4.68 4.68 0 001.08 1.91 4.61 4.61 0 001.91 1.08c.79.22 1.6.3 2.19.24 2.03-.02 6.37-.02 8.58 0 .59.06 1.4-.02 2.19-.24a4.61 4.61 0 001.91-1.08c.49-.49.83-1.13 1.08-1.91a9.23 9.23 0 00.24-2.19c-.02-2.03-.02-6.37 0-8.58zM17.5 16.5c0 .69-.56 1.25-1.25 1.25S15 17.19 15 16.5V10c0-.69.56-1.25 1.25-1.25s1.25.56 1.25 1.25v6.5zm-2.5-9c0 .69-.56 1.25-1.25 1.25S12.5 8.19 12.5 7.5V7c0-.69.56-1.25 1.25-1.25S15 6.31 15 7v.5z"/>
-                  </svg>
-                </a>
-                <a href="#" className="p-3 bg-ash hover:bg-steel transition-colors rounded" title="YouTube Music">
-                  <svg className="w-5 h-5 text-bone" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                  </svg>
-                </a>
-                <a href="#" className="p-3 bg-ash hover:bg-steel transition-colors rounded" title="Bandcamp">
-                  <svg className="w-5 h-5 text-bone" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M0 18.75l7.437-13.5H24l-7.438 13.5H0z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
+          {/* Spotify Embed */}
+          <div className="w-full">
+            <iframe 
+              key={selectedAlbum.id}
+              style={{ borderRadius: "12px" }}
+              src={selectedAlbum.spotifyEmbed}
+              width="100%" 
+              height="352" 
+              frameBorder={0}
+              allowFullScreen
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
 
-            {/* Track List */}
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <p className="font-body text-mist text-sm uppercase tracking-wider">6 Tracks • 28:45</p>
-                <button 
-                  onClick={() => handleTrackClick(albumTracks[0])}
-                  className="flex items-center gap-2 font-body text-sm uppercase tracking-wider text-blood-bright hover:text-blood transition-colors"
-                >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                  Play All
-                </button>
-              </div>
-              
-              <div className="space-y-1">
-                {albumTracks.map((track, index) => (
-                  <button
-                    key={track.id}
-                    onClick={() => handleTrackClick(track)}
-                    className={`track-item w-full text-left p-4 flex items-center gap-4 border-b border-steel/30 ${currentTrack?.id === track.id ? "bg-blood/20" : ""}`}
-                  >
-                    <span className="font-mono text-sm text-mist w-6">{String(index + 1).padStart(2, "0")}</span>
-                    <span className="font-heading text-bone flex-1 tracking-wide">{track.title}</span>
-                    <span className="font-mono text-sm text-mist">{track.duration}</span>
-                    {currentTrack?.id === track.id ? (
-                      <div className="flex items-center gap-0.5">
-                        <div className="w-0.5 h-3 bg-blood-bright animate-pulse" />
-                        <div className="w-0.5 h-4 bg-blood-bright animate-pulse" style={{ animationDelay: "0.1s" }} />
-                        <div className="w-0.5 h-2 bg-blood-bright animate-pulse" style={{ animationDelay: "0.2s" }} />
-                      </div>
-                    ) : (
-                      <svg className="w-4 h-4 text-mist opacity-0 group-hover:opacity-100" fill="currentColor" viewBox="0 0 24 24">
+      {/* More By Section - Discography */}
+      <section className="py-16 md:py-24 bg-background relative">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="font-heading text-xl md:text-2xl text-bone tracking-wider">More by From Misery to Malice</h2>
+            <a href="#" className="font-body text-sm text-mist hover:text-blood-bright transition-colors hidden sm:block">
+              See discography
+            </a>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {discography.map((album) => (
+              <div 
+                key={album.id} 
+                className="group cursor-pointer"
+                onClick={() => {
+                  setSelectedAlbum(album);
+                  document.getElementById('music')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <div className={`aspect-square relative overflow-hidden mb-3 rounded-sm ${selectedAlbum.id === album.id ? 'ring-2 ring-blood-bright' : ''}`}>
+                  <Image 
+                    src={album.image} 
+                    alt={album.title} 
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {/* Play button overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-end justify-end p-3">
+                    <div className={`w-12 h-12 bg-blood rounded-full flex items-center justify-center transform shadow-lg hover:scale-105 hover:bg-blood-bright transition-all duration-300 ${selectedAlbum.id === album.id ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100'}`}>
+                      <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z"/>
                       </svg>
-                    )}
-                  </button>
-                ))}
+                    </div>
+                  </div>
+                  {/* Now playing indicator */}
+                  {selectedAlbum.id === album.id && (
+                    <div className="absolute top-2 left-2 bg-blood px-2 py-1 rounded text-xs font-body text-white uppercase tracking-wider">
+                      Now Playing
+                    </div>
+                  )}
+                </div>
+                <h3 className={`font-body text-sm md:text-base truncate transition-colors ${selectedAlbum.id === album.id ? 'text-blood-bright' : 'text-bone group-hover:text-blood-bright'}`}>
+                  {album.title}
+                </h3>
+                <p className="font-body text-mist text-xs md:text-sm">{album.year}</p>
               </div>
-            </div>
+            ))}
+          </div>
+
+          {/* Mobile see discography link */}
+          <div className="text-center mt-8 sm:hidden">
+            <a href="#" className="font-body text-sm text-mist hover:text-blood-bright transition-colors">
+              See discography
+            </a>
           </div>
         </div>
       </section>
