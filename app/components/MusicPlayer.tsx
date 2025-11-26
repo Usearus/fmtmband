@@ -20,14 +20,15 @@ export default function MusicPlayer({ track, onClose, onNext, onPrevious }: Musi
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(0.7);
+  const [prevTrackId, setPrevTrackId] = useState<number | null>(null);
   const progressRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (track) {
-      setCurrentTime(0);
-      setIsPlaying(true);
-    }
-  }, [track]);
+  // Reset playback state when track changes (during render, not in effect)
+  if (track && track.id !== prevTrackId) {
+    setPrevTrackId(track.id);
+    setCurrentTime(0);
+    setIsPlaying(true);
+  }
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -60,7 +61,7 @@ export default function MusicPlayer({ track, onClose, onNext, onPrevious }: Musi
       {/* Progress bar at top */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-steel/50">
         <div 
-          className="h-full bg-gradient-to-r from-blood-dark via-blood to-blood-bright transition-all duration-200"
+          className="h-full bg-linear-to-r from-blood-dark via-blood to-blood-bright transition-all duration-200"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -69,7 +70,7 @@ export default function MusicPlayer({ track, onClose, onNext, onPrevious }: Musi
         <div className="flex items-center justify-between gap-4">
           {/* Track info */}
           <div className="flex items-center gap-4 min-w-0 flex-1">
-            <div className="w-14 h-14 bg-blood/20 rounded flex items-center justify-center flex-shrink-0 border border-blood/30">
+            <div className="w-14 h-14 bg-blood/20 rounded flex items-center justify-center shrink-0 border border-blood/30">
               <svg className="w-6 h-6 text-blood-bright" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
               </svg>

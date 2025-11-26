@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import MusicPlayer, { Track } from "./components/MusicPlayer";
+import Image from "next/image";
 
 // Sample data
 const tourDates = [
@@ -129,14 +130,14 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background layers */}
-        <div className="absolute inset-0 bg-gradient-to-b from-blood-dark/20 via-background to-background" />
+        <div className="absolute inset-0 bg-linear-to-b from-blood-dark/20 via-background to-background" />
         <div className="absolute inset-0 shatter-bg opacity-30" />
         
         {/* Animated blood drips */}
-        <div className="absolute top-0 left-[10%] w-px h-0 bg-gradient-to-b from-blood to-transparent opacity-60" style={{ animation: "drip 4s ease-in-out infinite", animationDelay: "0s" }} />
-        <div className="absolute top-0 left-[30%] w-px h-0 bg-gradient-to-b from-blood to-transparent opacity-40" style={{ animation: "drip 4s ease-in-out infinite", animationDelay: "1s" }} />
-        <div className="absolute top-0 left-[70%] w-px h-0 bg-gradient-to-b from-blood to-transparent opacity-50" style={{ animation: "drip 4s ease-in-out infinite", animationDelay: "2s" }} />
-        <div className="absolute top-0 left-[90%] w-px h-0 bg-gradient-to-b from-blood to-transparent opacity-30" style={{ animation: "drip 4s ease-in-out infinite", animationDelay: "3s" }} />
+        <div className="absolute top-0 left-[10%] w-px h-0 bg-linear-to-b from-blood to-transparent opacity-60" style={{ animation: "drip 4s ease-in-out infinite", animationDelay: "0s" }} />
+        <div className="absolute top-0 left-[30%] w-px h-0 bg-linear-to-b from-blood to-transparent opacity-40" style={{ animation: "drip 4s ease-in-out infinite", animationDelay: "1s" }} />
+        <div className="absolute top-0 left-[70%] w-px h-0 bg-linear-to-b from-blood to-transparent opacity-50" style={{ animation: "drip 4s ease-in-out infinite", animationDelay: "2s" }} />
+        <div className="absolute top-0 left-[90%] w-px h-0 bg-linear-to-b from-blood to-transparent opacity-30" style={{ animation: "drip 4s ease-in-out infinite", animationDelay: "3s" }} />
 
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
           <div className="animate-fade-in-up">
@@ -144,10 +145,13 @@ export default function Home() {
               Deathcore From The Abyss
             </p>
             <div className="mb-8">
-              <img 
+              <Image 
                 src="/FMTM.png" 
                 alt="From Misery To Malice" 
+                width={1140}
+                height={980}
                 className="w-full max-w-3xl mx-auto h-auto drop-shadow-[0_0_30px_rgba(139,0,0,0.5)]"
+                priority
               />
             </div>
             <p className="font-body text-mist text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
@@ -189,13 +193,13 @@ export default function Home() {
 
       {/* Tour Dates Section */}
       <section id="tour" className="py-20 md:py-32 bg-charcoal relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background opacity-50" />
+        <div className="absolute inset-0 bg-linear-to-b from-background via-transparent to-background opacity-50" />
         
         <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center mb-12 md:mb-16">
             <p className="font-body text-blood-bright text-sm uppercase tracking-[0.3em] mb-3">On The Road</p>
             <h2 className="font-heading text-4xl md:text-6xl text-bone tracking-wider">TOUR DATES</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-blood to-transparent mx-auto mt-6" />
+            <div className="w-24 h-1 bg-linear-to-r from-transparent via-blood to-transparent mx-auto mt-6" />
           </div>
 
           <div className="space-y-3 stagger-children">
@@ -253,17 +257,18 @@ export default function Home() {
           <div className="text-center mb-12 md:mb-16">
             <p className="font-body text-blood-bright text-sm uppercase tracking-[0.3em] mb-3">Latest Release</p>
             <h2 className="font-heading text-4xl md:text-6xl text-bone tracking-wider">AETERNUM VALE</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-blood to-transparent mx-auto mt-6" />
+            <div className="w-24 h-1 bg-linear-to-r from-transparent via-blood to-transparent mx-auto mt-6" />
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
             {/* Album Art */}
             <div className="relative group">
               <div className="aspect-square border-2 border-blood/30 relative overflow-hidden">
-                <img 
-                  src="/FMTM Album.jpg" 
+                <Image 
+                  src="/FMTM Album 1.jpg" 
                   alt="Aeternum Vale Album Art" 
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
                 {/* Overlay on hover */}
                 <div className="absolute inset-0 bg-blood/0 group-hover:bg-blood/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -349,20 +354,20 @@ export default function Home() {
 
       {/* Band Members Section */}
       <section id="band" className="py-20 md:py-32 bg-charcoal relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background opacity-30" />
+        <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-background opacity-30" />
         
         <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center mb-12 md:mb-16">
             <p className="font-body text-blood-bright text-sm uppercase tracking-[0.3em] mb-3">The Collective</p>
             <h2 className="font-heading text-4xl md:text-6xl text-bone tracking-wider">THE BAND</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-blood to-transparent mx-auto mt-6" />
+            <div className="w-24 h-1 bg-linear-to-r from-transparent via-blood to-transparent mx-auto mt-6" />
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8 stagger-children">
             {bandMembers.map((member) => (
               <div key={member.name} className="text-center group">
                 <div className="aspect-square bg-ash border border-steel/30 group-hover:border-blood/50 transition-all duration-300 flex items-center justify-center text-5xl mb-4 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-blood/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-linear-to-t from-blood/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <span className="relative z-10 grayscale group-hover:grayscale-0 transition-all duration-300">{member.image}</span>
                 </div>
                 <h3 className="font-heading text-bone text-sm md:text-base tracking-wider">{member.name}</h3>
@@ -388,14 +393,14 @@ export default function Home() {
           <div className="text-center mb-12 md:mb-16">
             <p className="font-body text-blood-bright text-sm uppercase tracking-[0.3em] mb-3">Official Gear</p>
             <h2 className="font-heading text-4xl md:text-6xl text-bone tracking-wider">MERCH</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-blood to-transparent mx-auto mt-6" />
+            <div className="w-24 h-1 bg-linear-to-r from-transparent via-blood to-transparent mx-auto mt-6" />
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 stagger-children">
             {merchItems.map((item) => (
               <div key={item.id} className="group cursor-pointer">
                 <div className="aspect-square bg-ash border border-steel/30 group-hover:border-blood/50 transition-all duration-300 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blood-dark/30 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-br from-blood-dark/30 to-transparent" />
                   <div className="text-center relative z-10">
                     <p className="font-heading text-bone text-lg tracking-wider">{item.type}</p>
                   </div>
@@ -426,7 +431,7 @@ export default function Home() {
 
       {/* Newsletter/Contact Section */}
       <section id="contact" className="py-20 md:py-32 bg-charcoal relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background opacity-30" />
+        <div className="absolute inset-0 bg-linear-to-b from-background via-transparent to-background opacity-30" />
         <div className="absolute inset-0 shatter-bg opacity-20" />
         
         <div className="max-w-4xl mx-auto px-4 md:px-6 relative z-10">
