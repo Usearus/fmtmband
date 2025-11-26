@@ -1,26 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Cinzel:wght@400;700;900&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #e8e8e8;
+  --blood: #8B0000;
+  --blood-bright: #c41e3a;
+  --blood-dark: #4a0000;
+  --charcoal: #1a1a1a;
+  --ash: #2a2a2a;
+  --steel: #3a3a3a;
+  --mist: #666666;
+  --bone: #d4d4d4;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-blood: var(--blood);
+  --color-blood-bright: var(--blood-bright);
+  --color-blood-dark: var(--blood-dark);
+  --color-charcoal: var(--charcoal);
+  --color-ash: var(--ash);
+  --color-steel: var(--steel);
+  --color-mist: var(--mist);
+  --color-bone: var(--bone);
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Oswald', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--charcoal);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--blood);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blood-bright);
+}
+
+/* Noise texture overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+.glitch-hover:hover {
+  animation: glitch 0.3s ease infinite;
+}
+
+/* Blood drip animation */
+@keyframes drip {
+  0% { height: 0; opacity: 1; }
+  80% { height: 100px; opacity: 1; }
+  100% { height: 100px; opacity: 0; }
+}
+
+/* Pulse animation for buttons */
+@keyframes pulse-blood {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.7); }
+  50% { box-shadow: 0 0 20px 10px rgba(139, 0, 0, 0); }
+}
+
+.pulse-blood {
+  animation: pulse-blood 2s infinite;
+}
+
+/* Fade in up animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Stagger children animations */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+.stagger-children > *:nth-child(7) { animation-delay: 0.7s; }
+.stagger-children > *:nth-child(8) { animation-delay: 0.8s; }
+
+/* Text gradient */
+.text-gradient-blood {
+  background: linear-gradient(135deg, var(--blood-bright) 0%, var(--blood) 50%, var(--blood-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Border gradient */
+.border-gradient-blood {
+  border: 2px solid transparent;
+  background: linear-gradient(var(--charcoal), var(--charcoal)) padding-box,
+              linear-gradient(135deg, var(--blood-bright), var(--blood-dark)) border-box;
+}
+
+/* Custom range slider for music player */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: var(--steel);
+  border-radius: 2px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--blood-bright);
+  border-radius: 50%;
+  margin-top: -4px;
+  transition: transform 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: var(--steel);
+  border-radius: 2px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--blood-bright);
+  border-radius: 50%;
+  border: none;
+}
+
+/* Shattered glass effect */
+.shatter-bg {
+  background: 
+    linear-gradient(135deg, transparent 25%, rgba(139, 0, 0, 0.1) 25%, rgba(139, 0, 0, 0.1) 50%, transparent 50%, transparent 75%, rgba(139, 0, 0, 0.05) 75%);
+  background-size: 60px 60px;
+}
+
+/* Tour card hover */
+.tour-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tour-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.tour-card:hover::before {
+  left: 100%;
+}
+
+.tour-card:hover {
+  transform: translateX(10px);
+  border-color: var(--blood-bright);
+}
+
+/* Track item hover */
+.track-item {
+  transition: all 0.3s ease;
+}
+
+.track-item:hover {
+  background: rgba(139, 0, 0, 0.2);
+  padding-left: 1.5rem;
+}
+
+/* Hero parallax layers */
+.parallax-slow {
+  transform: translateZ(-2px) scale(3);
+}
+
+.parallax-fast {
+  transform: translateZ(-1px) scale(2);
 }
